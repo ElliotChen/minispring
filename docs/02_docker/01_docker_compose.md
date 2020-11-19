@@ -14,7 +14,7 @@ version: "3.7"
 
 services:
   minispring:
-    image: minispring:0.0.1-SNAPSHOT
+    image: localhost:5000/minispring:latest
     ports:
       - 8080:8080
 ```

@@ -16,4 +16,7 @@ Demo how to deploy a spring boot service to minikube by Jenkins
 4. Minikube
     * Deployment
     * Service
+    * [Private Registry](./docs/04_minikube/02_private_registry.md)
+    * [deploy by kubectl](./docs/04_minikube/03_kubectl_deploy.md)
+    
 
