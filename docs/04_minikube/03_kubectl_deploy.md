@@ -4,6 +4,8 @@
 
 ```
 kubectl create -f minispring-deployment.yaml,minispring-service.yaml
+
+kubectl create -f  ./deploy/kubectl/minispring-deployment.yaml,./deploy/kubectl/minispring-service.yaml
 ```
 
 ## verify

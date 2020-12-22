@@ -30,7 +30,7 @@ spec:
         io.kompose.service: minispring
     spec:
       containers:
-      - image: localhost:5000/minispring:latest
+      - image: elliot/minispring:latest
         imagePullPolicy: ""
         name: minispring
         ports:
