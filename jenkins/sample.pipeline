@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "maven"
+        gradle "gradle"
+        jdk "jdk15"
+    }
+
+    stages {
+        stage('SCM') {
+            steps {
+                // Get some code from a GitHub repository
+                git 'https://github.com/ElliotChen/minispring.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+
+                // Run Gradle on a Unix agent.
+                sh "gradle bootBuildImage"
+            }
+        }
+
+        stage('Push Image') {
+            steps {
+
+                sh "docker tag elliot/minispring:latest registry.elliot.tw/elliot/minispring:latest"
+                sh "docker push registry.elliot.tw/elliot/minispring:latest"
+            }
+        }
+        /*
+        stage('Refresh Pods') {
+            steps {
+                withCredentials([string(credentialsId: 'jenkins_minikube', variable: 'api_token')]) {
+                    // Run Gradle on a Unix agent.
+                    sh "kubectl --token $api_token --server https://192.168.99.105:8443 --insecure-skip-tls-verify=true set image deployment minispring minispring=localhost:5000/minispring:latest --record"
+                }
+            }
+        }
+        */
+    }
+}
