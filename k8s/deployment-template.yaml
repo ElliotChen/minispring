@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: minispring
-          image: 'registry.digitalocean.com/elliot/minispring:${version}'
+          image: 'registry.digitalocean.com/elliot/minispring:${VERSION}'
           ports:
             - containerPort: 8080
       restartPolicy: Always
