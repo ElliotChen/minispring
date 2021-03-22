@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minispring
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minispring
+  template:
+    metadata:
+      labels:
+        app: minispring
+    spec:
+      containers:
+        - name: minispring
+          image: 'registry.digitalocean.com/elliot/minispring:latest'
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always
