@@ -4,9 +4,9 @@ metadata:
   name: minispring-config
   namespace: default
 data:
-  application-k8s.yaml: |
+  application-k8s.yml: |
     minispring:
-      title: "minikube + springboot with configmap"
+      title: "minikube + springboot with digtital ocean"
 
 
 ---
@@ -33,7 +33,7 @@ spec:
             - containerPort: 8080
           volumeMounts:
             - name: config-volume
-              mountPath: /config
+              mountPath: /workspace/config
       volumes:
         - name: config-volume
           configMap:

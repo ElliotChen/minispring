@@ -60,12 +60,12 @@ tasks.getByName<BootBuildImage>("bootBuildImage") {
 	isVerboseLogging = true
 }
 
-val activeProfile=project.properties["activeProfile"] ?: "local"
+val activeProfile=project.properties["activeProfile"] ?: "k8s"
 
 tasks.processResources {
 
+	logger.error("Got active profile [{}]", activeProfile)
 	val filterTokens = mapOf("activeProfile" to activeProfile)
 	filter<ReplaceTokens>("tokens" to filterTokens)
-	logger.error("Got active profile [{}]", activeProfile)
 	//filter<ReplaceTokens>("activeProfile" to activeProfile)
 }
