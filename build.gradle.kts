@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+import org.apache.tools.ant.filters.*
 
 plugins {
 	id("org.springframework.boot") version "2.4.1"
@@ -11,7 +12,7 @@ plugins {
 
 group = "tw.elliot"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_15
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 configurations {
 	compileOnly {
@@ -30,6 +31,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("io.micrometer:micrometer-registry-prometheus")
+	implementation("org.junit.jupiter:junit-jupiter:5.4.2")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
@@ -48,7 +50,7 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "15"
+		jvmTarget = "8"
 	}
 }
 
@@ -56,4 +58,14 @@ tasks.withType<KotlinCompile> {
 tasks.getByName<BootBuildImage>("bootBuildImage") {
 	imageName = "elliot/minispring:latest"
 	isVerboseLogging = true
+}
+
+val activeProfile=project.properties["activeProfile"] ?: "local"
+
+tasks.processResources {
+
+	val filterTokens = mapOf("activeProfile" to activeProfile)
+	filter<ReplaceTokens>("tokens" to filterTokens)
+	logger.error("Got active profile [{}]", activeProfile)
+	//filter<ReplaceTokens>("activeProfile" to activeProfile)
 }

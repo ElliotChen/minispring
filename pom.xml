@@ -15,7 +15,7 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>15</java.version>
+		<java.version>8</java.version>
 	</properties>
 
 	<dependencies>
@@ -97,6 +97,45 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>application-*.yml</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>application.yml</include>
+					<include>application-${activeProfile}.yml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activeProfile>dev</activeProfile>
+			</properties>
+		</profile>
+		<profile>
+			<id>stage</id>
+			<properties>
+				<activeProfile>stage</activeProfile>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<activeProfile>prod</activeProfile>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>

@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: minispring-config
+  namespace: default
+data:
+  application-k8s.yaml: |
+    minispring:
+      title: "minikube + springboot with configmap"
+
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,4 +31,11 @@ spec:
           image: registry.digitalocean.com/sds-do-cr01/minispring:latest
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: minispring-config
       restartPolicy: Always
