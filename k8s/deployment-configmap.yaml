@@ -5,6 +5,10 @@ metadata:
   namespace: default
 data:
   application-k8s.yml: |
+    spring:
+      redis:
+        host: 10.244.1.85
+        port: 6379
     minispring:
       title: "minikube + springboot with digtital ocean"
 

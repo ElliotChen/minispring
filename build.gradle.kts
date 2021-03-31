@@ -32,6 +32,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("io.micrometer:micrometer-registry-prometheus")
 	implementation("org.junit.jupiter:junit-jupiter:5.4.2")
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
@@ -60,7 +61,7 @@ tasks.getByName<BootBuildImage>("bootBuildImage") {
 	isVerboseLogging = true
 }
 
-val activeProfile=project.properties["activeProfile"] ?: "k8s"
+val activeProfile=project.properties["activeProfile"] ?: "local"
 
 tasks.processResources {
 
